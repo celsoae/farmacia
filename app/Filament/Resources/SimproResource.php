@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Imports\Custom\CustomImportAction;
+use App\Filament\Imports\Custom\CustomTableImportAction;
+use App\Filament\Imports\Custom\Parsers\SimproParser;
 use App\Filament\Imports\SimproImporter;
 use App\Filament\Resources\SimproResource\Pages;
 use App\Filament\Resources\SimproResource\RelationManagers;
@@ -41,7 +44,8 @@ class SimproResource extends Resource
                     ->money('BRL')
             ])
             ->headerActions([
-                ImportAction::make()
+                CustomTableImportAction::make()
+                    ->loadParser(SimproParser::class)
                     ->importer(SimproImporter::class)
                     ->csvDelimiter(';')
             ])

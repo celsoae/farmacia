@@ -17,130 +17,154 @@ class SimproImporter extends Importer
     {
         return [
             ImportColumn::make('codigoUsuario')
+                ->guess(['CD_USUARIO'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('codigoFracao')
+                ->guess(['CD_FRACAO'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('descricao')
+                ->guess(['DESCRICAO'])
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('vigencia')
                 ->requiredMapping()
                 ->castStateUsing(function (string $state): ?string {
                     return $state ? Carbon::createFromFormat('dmY', $state)->format('Y-m-d') : null;
                 })
-                ->rules(['required', 'date']),
+                ->rules(['date']),
             ImportColumn::make('identificacao')
+                ->guess(['IDENTIF'])
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('precoFabrica')
+                ->guess(['PC_EM_FAB'])
                 ->castStateUsing(function (string $state): ?string {
                     return $state ? floatval($state) / 100 : '0.00';
                 })
-                ->requiredMapping()
-                ->rules(['required']),
+                ->requiredMapping(),
             ImportColumn::make('precoVenda')
+                ->guess(['PC_EM_VEN'])
                 ->castStateUsing(function (string $state): ?string {
                     return $state ? floatval($state) / 100 : '0.00';
                 })
-                ->requiredMapping()
-                ->rules(['required']),
+                ->requiredMapping(),
             ImportColumn::make('precoUsuario')
+                ->guess(['PC_EM_USU'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('precoFabricaFracao')
+                ->guess(['PC_FR_FAB'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('precoVendaFracao')
+                ->guess(['PC_FR_VEN'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('precoUsuarioFracao')
+                ->guess(['PC_FR_USU'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('embalagem')
+                ->guess(['TP_EMBAL'])
                 ->requiredMapping()
                 ->rules(['max:255']),
             ImportColumn::make('fracao')
+                ->guess(['TP_FRACAO'])
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('quantidadeEmbalagem')
+                ->guess(['QTDE_EMBAL'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('quantidadeFracao')
+                ->guess(['QTDE_FRAC'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('lucro')
+                ->guess(['PERC_LUCR'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('tipoAlteracao')
+                ->guess(['TIP_ALT'])
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('fabricante')
+                ->guess(['FABRICA'])
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('codigoSimpro')
+                ->guess(['CD_SIMPRO'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('codigoMercado')
+                ->guess(['CD_MERCADO'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('desconto')
+                ->guess(['PERC_DESC'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('ipi')
+                ->guess(['IPI_PRODUTO'])
                 ->requiredMapping()
                 ->numeric()
-                ->rules(['required', 'integer']),
+                ->rules(['integer']),
             ImportColumn::make('anvisa')
+                ->guess(['REGISTRO_ANVISA'])
                 ->requiredMapping()
-                ->numeric()
-                ->rules(['max:255']),
+                ->rules(['nullable', 'max:255']),
             ImportColumn::make('validadeAnvisa')
-                ->requiredMapping()
-                ->rules(['max:255']),
+                ->guess(['VALIDADE_ANVISA'])
+                ->requiredMapping(),
             ImportColumn::make('codigoEAN')
                 ->label('Codigo EAN')
-                ->castStateUsing(function ($state) {
-                    return $state ?: null;
-                })
-                ->numeric()
-                ->requiredMapping(),
+                ->guess(['CD_BARRA'])
+                ->requiredMapping()
+                ->rules(['nullable']),
             ImportColumn::make('lista')
+                ->guess(['LISTA'])
+                ->requiredMapping()
+                ->rules(['nullable', 'max:255']),
+            ImportColumn::make('hospitalar')
+                ->guess(['HOSPITALAR'])
                 ->requiredMapping()
                 ->rules(['max:255']),
-            ImportColumn::make('hospitalar')
-                ->requiredMapping()
-                ->rules(['required', 'max:255']),
             ImportColumn::make('fracionavel')
+                ->guess(['FRACIONAR'])
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('codigoTUSS')
                 ->label('Codigo TUSS')
+                ->guess(['CD_TUSS'])
                 ->requiredMapping()
-                ->numeric(),
+                ->numeric()
+                ->rules(['nullable']),
             ImportColumn::make('classificacao')
+                ->guess(['CD_CLASSIF'])
                 ->rules(['max:255']),
             ImportColumn::make('referencia')
+                ->guess(['CD_REF_PRO'])
                 ->rules(['max:255']),
             ImportColumn::make('generico')
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('diversos')
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
         ];
     }
 
