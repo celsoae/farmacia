@@ -56,7 +56,6 @@ class ConformidadeResource extends Resource
             ->headerActions([
                 ImportAction::make()
                     ->importer(ConformidadeImporter::class)
-                    ->chunkSize(10)
                     ->csvDelimiter(';')
             ])
             ->filters([
