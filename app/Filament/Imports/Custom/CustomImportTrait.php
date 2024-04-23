@@ -17,6 +17,8 @@ use Filament\Support\ChunkIterator;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Actions\ImportAction as ImportTableAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Bus\PendingBatch;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Support\Htmlable;
@@ -34,6 +36,8 @@ use function Filament\Support\format_number;
 trait CustomImportTrait
 {
     protected $parser = false;
+
+    protected $customSchema;
 
     protected function setUp(): void
     {
@@ -96,6 +100,12 @@ trait CustomImportTrait
                 ->visibility('private')
                 ->required()
                 ->hiddenLabel(),
+//            Fieldset::make('Adicionais')
+//                ->columns(1)
+//                ->inlineLabel()
+//                ->schema([
+//                    TextInputColumn::make('versao')
+//                ]),
             Fieldset::make(__('filament-actions::import.modal.form.columns.label'))
                 ->columns(1)
                 ->inlineLabel()
@@ -347,6 +357,13 @@ trait CustomImportTrait
             $this->parser = new ($class)();
         }
 
+        return $this;
+    }
+
+    //Custom form pra novos dados
+    public function setCustomForm($form)
+    {
+        $this->customSchema = $form;
         return $this;
     }
 }

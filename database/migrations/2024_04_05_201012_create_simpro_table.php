@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,39 +12,39 @@ return new class extends Migration
     {
         Schema::create('simpro', function (Blueprint $table) {
             $table->id();
-            $table->integer('codigoUsuario');
-            $table->integer('codigoFracao');
-            $table->string('descricao', 255);
-            $table->date('vigencia');
-            $table->string('identificacao');
-            $table->float('precoFabrica');
-            $table->float('precoVenda');
-            $table->float('precoUsuario');
-            $table->float('precoFabricaFracao');
-            $table->float('precoVendaFracao');
-            $table->float('precoUsuarioFracao');
-            $table->string('embalagem');
-            $table->string('fracao');
-            $table->float('quantidadeEmbalagem');
-            $table->float('quantidadeFracao');
-            $table->float('lucro');
-            $table->string('tipoAlteracao');
-            $table->string('fabricante');
-            $table->integer('codigoSimpro');
-            $table->integer('codigoMercado');
-            $table->float('desconto');
-            $table->float('ipi');
-            $table->integer('anvisa');
-            $table->date('validadeAnvisa');
-            $table->integer('codigoEAN');
-            $table->string('lista');
-            $table->char('hospitalar');
-            $table->char('fracionavel');
-            $table->integer('codigoTUSS');
-            $table->string('classificacao')->nullable();
+            $table->string('codigoUsuario', '15')->nullable();
+            $table->string('codigoFracao', '15')->nullable();
+            $table->string('descricao', 255)->nullable();
+            $table->date('vigencia')->nullable();
+            $table->char('identificacao', '1')->nullable();
+            $table->float('precoFabrica', '11', '2')->nullable();
+            $table->float('precoVenda', '11', '2')->nullable();
+            $table->float('precoUsuario', '11', '2')->nullable();
+            $table->float('precoFabricaFracao', '12', '2')->nullable();
+            $table->float('precoVendaFracao', '12', '2')->nullable();
+            $table->float('precoUsuarioFracao', '12', '2')->nullable();
+            $table->char('embalagem', '3')->nullable();
+            $table->string('fracao')->nullable();
+            $table->float('quantidadeEmbalagem', '9', '2')->nullable();
+            $table->float('quantidadeFracao', '8', '2')->nullable();
+            $table->float('lucro', '8', '2')->nullable();
+            $table->char('tipoAlteracao', '1')->nullable();
+            $table->string('fabricante')->nullable();
+            $table->char('codigoSimpro', '10')->nullable();
+            $table->char('codigoMercado', '3')->nullable();
+            $table->float('desconto', '8', '2')->nullable();
+            $table->float('ipi', '8', '2')->nullable();
+            $table->char('anvisa', '18')->nullable();
+            $table->char('validadeAnvisa', '13')->nullable();
+            $table->bigInteger('codigoEAN')->nullable();
+            $table->char('lista', '1')->nullable();
+            $table->char('hospitalar', '1')->nullable();
+            $table->char('fracionavel', '1')->nullable();
+            $table->integer('codigo_tuss')->nullable();
+            $table->char('classificacao', '2')->nullable();
             $table->string('referencia')->nullable();
-            $table->char('generico');
-            $table->char('diversos');
+            $table->char('generico', '1')->nullable();
+            $table->char('diversos', '1')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

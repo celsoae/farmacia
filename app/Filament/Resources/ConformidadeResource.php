@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ConformidadeResource extends Resource
 {
     protected static ?string $model = Conformidade::class;
+    protected static ?string $label = 'CMED';
+    protected static ?string $pluralLabel = 'CMED';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -25,7 +27,18 @@ class ConformidadeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Grid::make(4)
+                    ->schema([
+                        Forms\Components\TextInput::make('PRODUTO')
+                            ->label('Produto')
+                            ->columnSpan('full'),
+                        Forms\Components\TextInput::make('SUBSTANCIA')
+                            ->label('Substância')
+                            ->columnSpan('full'),
+                        Forms\Components\TextInput::make('APRESENTACAO')
+                            ->label('Apresentação')
+                            ->columnSpan('full')
+                    ])
             ]);
     }
 
@@ -39,9 +52,6 @@ class ConformidadeResource extends Resource
                 Tables\Columns\TextColumn::make('PRODUTO')
                     ->label('Produto')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('APRESENTACAO')
-                    ->label('Apresentação')
-                    ->searchable(),
             ])
             ->headerActions([
                 ImportAction::make()
@@ -53,7 +63,9 @@ class ConformidadeResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+//                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->label('detalhes')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -73,8 +85,8 @@ class ConformidadeResource extends Resource
     {
         return [
             'index' => Pages\ListConformidades::route('/'),
-            'create' => Pages\CreateConformidade::route('/create'),
-            'edit' => Pages\EditConformidade::route('/{record}/edit'),
+//            'create' => Pages\CreateConformidade::route('/create'),
+//            'edit' => Pages\EditConformidade::route('/{record}/edit'),
         ];
     }
 }

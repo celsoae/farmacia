@@ -7,11 +7,22 @@ use Carbon\Carbon;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 
 class SimproImporter extends Importer
 {
     protected static ?string $model = Simpro::class;
+
+    public static function getOptionsFormComponents(): array
+    {
+        return [
+            TextInput::make('versao')
+                ->label('Versão da importação')
+                ->required()
+        ];
+    }
 
     public static function getColumns(): array
     {
@@ -147,7 +158,7 @@ class SimproImporter extends Importer
                 ->guess(['FRACIONAR'])
                 ->requiredMapping()
                 ->rules(['max:255']),
-            ImportColumn::make('codigoTUSS')
+            ImportColumn::make('codigo_tuss')
                 ->label('Codigo TUSS')
                 ->guess(['CD_TUSS'])
                 ->requiredMapping()
