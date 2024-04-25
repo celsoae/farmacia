@@ -6,6 +6,8 @@ use App\Filament\Imports\ConformidadeImporter;
 use App\Filament\Resources\ConformidadeResource\Pages;
 use App\Filament\Resources\ConformidadeResource\RelationManagers;
 use App\Models\Conformidade;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -21,24 +23,21 @@ class ConformidadeResource extends Resource
     protected static ?string $label = 'CMED';
     protected static ?string $pluralLabel = 'CMED';
 
+    protected static ?string $navigationGroup = 'Tabelas';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make(4)
-                    ->schema([
-                        Forms\Components\TextInput::make('PRODUTO')
-                            ->label('Produto')
-                            ->columnSpan('full'),
-                        Forms\Components\TextInput::make('SUBSTANCIA')
-                            ->label('Substância')
-                            ->columnSpan('full'),
-                        Forms\Components\TextInput::make('APRESENTACAO')
-                            ->label('Apresentação')
-                            ->columnSpan('full')
-                    ])
+                Forms\Components\TextInput::make('PRODUTO')
+                    ->label('Produto'),
+                Forms\Components\TextInput::make('SUBSTANCIA')
+                    ->label('Substância'),
+                Forms\Components\TextInput::make('APRESENTACAO')
+                    ->label('Apresentação')
             ]);
     }
 
@@ -46,11 +45,11 @@ class ConformidadeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('SUBSTANCIA')
-                    ->label('Substância')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('PRODUTO')
                     ->label('Produto')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('SUBSTANCIA')
+                    ->label('Substância')
                     ->searchable(),
             ])
             ->headerActions([
@@ -86,6 +85,7 @@ class ConformidadeResource extends Resource
             'index' => Pages\ListConformidades::route('/'),
 //            'create' => Pages\CreateConformidade::route('/create'),
 //            'edit' => Pages\EditConformidade::route('/{record}/edit'),
+            'view' => Pages\ViewConformidade::route('/{record}'),
         ];
     }
 }

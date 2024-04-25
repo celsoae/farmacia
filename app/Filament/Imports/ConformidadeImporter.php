@@ -73,6 +73,7 @@ class ConformidadeImporter extends Importer
                 ->requiredMapping()
                 ->rules(['max:255']),
             ImportColumn::make('PF_17-5')
+                ->guess(['PF_17-5', 'P f 17 5'])
                 ->requiredMapping()
                 ->rules(['max:255']),
             ImportColumn::make('PF_17-5_ALC')

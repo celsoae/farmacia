@@ -22,6 +22,8 @@ class SimproResource extends Resource
 {
     protected static ?string $model = Simpro::class;
 
+    protected static ?string $navigationGroup = 'Tabelas';
+
     protected static ?string $pluralLabel = 'Tabela Simpro';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

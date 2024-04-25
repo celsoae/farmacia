@@ -20,6 +20,8 @@ class TabelaTussResource extends Resource
 
     protected static ?string $pluralLabel = 'Tabela TUSS 20';
 
+    protected static ?string $navigationGroup = 'Tabelas';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

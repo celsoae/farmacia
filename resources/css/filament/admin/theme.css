@@ -1,0 +1,11 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+.fi-fo-wizard-header-step-description {
+    text-align: left !important;
+}
+
+.fi-main{
+    max-width: 100% !important;
+}
