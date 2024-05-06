@@ -30,7 +30,6 @@ class ViewConformidade extends ViewRecord
                             ->label('Laboratorio')
                             ->columnSpan(2),
                         TextEntry::make('CNPJ')
-
                             ->label('CNPJ')
                             ->columnSpan(1),
                         TextEntry::make('TIPO_PRODUTO')

@@ -9,6 +9,7 @@ use Filament\Actions\Imports\Models\Import;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Notifications\Actions\Action as NotificationAction;
@@ -101,11 +102,12 @@ trait CustomImportTrait
                 ->required()
                 ->hiddenLabel(),
 //            Fieldset::make('Adicionais')
-//                ->columns(1)
-//                ->inlineLabel()
 //                ->schema([
-//                    TextInputColumn::make('versao')
-//                ]),
+//                    TextInput::make('versao')
+//                        ->required(),
+//                ])
+//                ->columns(1)
+//                ->inlineLabel(),
             Fieldset::make(__('filament-actions::import.modal.form.columns.label'))
                 ->columns(1)
                 ->inlineLabel()

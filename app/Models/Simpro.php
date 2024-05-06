@@ -45,5 +45,6 @@ class Simpro extends Model
         'referencia',
         'generico',
         'diversos',
+        'versao'
     ];
 }

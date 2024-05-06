@@ -41,6 +41,7 @@ class SimproResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('codigoUsuario'),
+                Tables\Columns\TextColumn::make('versao'),
                 Tables\Columns\TextColumn::make('descricao'),
                 Tables\Columns\TextColumn::make('precoFabrica')
                     ->money('BRL')

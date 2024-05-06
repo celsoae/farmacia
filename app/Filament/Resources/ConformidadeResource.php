@@ -3,11 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Imports\ConformidadeImporter;
+use App\Filament\Resources\ConformidadeResource\Custom\CustomBulkSelect;
 use App\Filament\Resources\ConformidadeResource\Pages;
 use App\Filament\Resources\ConformidadeResource\RelationManagers;
 use App\Models\Conformidade;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ConformidadeResource extends Resource
@@ -69,7 +72,23 @@ class ConformidadeResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+                Tables\Actions\BulkAction::make('compare')
+                    ->button()
+                    ->action(function (Collection $records) {
+//                        dd($records);
+                    })
+                    ->before(function (Collection $records) {
+                        if ($records->count() > 4) {
+                            Notification::make()
+                                ->title('Numero maximo de itens permitido é: 4')
+                                ->warning()
+                                ->send();
+                            return null;
+                        }
+                        dd('ok');
+                    })
+            ])
+            ->selectCurrentPageOnly();
     }
 
     public static function getRelations(): array
