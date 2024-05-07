@@ -6,10 +6,20 @@ use App\Models\Brasindice;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
+use Filament\Forms\Components\TextInput;
 
 class BrasindiceImporter extends Importer
 {
     protected static ?string $model = Brasindice::class;
+
+    public static function getOptionsFormComponents(): array
+    {
+        return [
+            TextInput::make('aliquota')
+                ->label('Aliquota Importada')
+                ->required()
+        ];
+    }
 
     public static function getColumns(): array
     {
@@ -52,11 +62,6 @@ class BrasindiceImporter extends Importer
 
     public function resolveRecord(): ?Brasindice
     {
-        // return Brasindice::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
-
         $aliquota = $this->getOptions()['adicionais']['aliquota'];
 
         $brasindice = new Brasindice();

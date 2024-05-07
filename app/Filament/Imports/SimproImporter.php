@@ -181,10 +181,6 @@ class SimproImporter extends Importer
 
     public function resolveRecord(): ?Simpro
     {
-        // return Simpro::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
         $versao = $this->getOptions()['adicionais']['versao'];
 
         $simpro = new Simpro();

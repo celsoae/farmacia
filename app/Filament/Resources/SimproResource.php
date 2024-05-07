@@ -22,6 +22,8 @@ class SimproResource extends Resource
 {
     protected static ?string $model = Simpro::class;
 
+    protected static ?string $navigationGroup = 'Tabelas';
+
     protected static ?string $pluralLabel = 'Tabela Simpro';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -39,6 +41,7 @@ class SimproResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('codigoUsuario'),
+                Tables\Columns\TextColumn::make('versao'),
                 Tables\Columns\TextColumn::make('descricao'),
                 Tables\Columns\TextColumn::make('precoFabrica')
                     ->money('BRL')

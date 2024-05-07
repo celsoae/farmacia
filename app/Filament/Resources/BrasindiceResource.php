@@ -22,6 +22,10 @@ class BrasindiceResource extends Resource
 {
     protected static ?string $model = Brasindice::class;
 
+    protected static ?string $pluralLabel = 'Brasindice';
+
+    protected static ?string $navigationGroup = 'Tabelas';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
