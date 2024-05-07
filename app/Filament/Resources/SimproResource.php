@@ -48,6 +48,10 @@ class SimproResource extends Resource
                     ->loadParser(SimproParser::class)
                     ->importer(SimproImporter::class)
                     ->csvDelimiter(';')
+                    ->setCustomForm([
+                        Forms\Components\TextInput::make('versao')
+                            ->required(),
+                    ])
             ])
             ->filters([
                 //

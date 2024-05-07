@@ -15,14 +15,14 @@ class SimproImporter extends Importer
 {
     protected static ?string $model = Simpro::class;
 
-    public static function getOptionsFormComponents(): array
-    {
-        return [
-            TextInput::make('versao')
-                ->label('Versão da importação')
-                ->required()
-        ];
-    }
+//    public static function getOptionsFormComponents(): array
+//    {
+//        return [
+//            TextInput::make('versao')
+//                ->label('Versão da importação')
+//                ->required()
+//        ];
+//    }
 
     public static function getColumns(): array
     {
@@ -185,8 +185,12 @@ class SimproImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
+        $versao = $this->getOptions()['adicionais']['versao'];
 
-        return new Simpro();
+        $simpro = new Simpro();
+        $simpro->setAttribute('versao', $versao);
+
+        return $simpro;
     }
 
     public static function getCompletedNotificationBody(Import $import): string

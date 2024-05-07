@@ -57,7 +57,12 @@ class BrasindiceImporter extends Importer
         //     'email' => $this->data['email'],
         // ]);
 
-        return new Brasindice();
+        $aliquota = $this->getOptions()['adicionais']['aliquota'];
+
+        $brasindice = new Brasindice();
+        $brasindice->setAttribute('aliquota', $aliquota);
+
+        return $brasindice;
     }
 
     public static function getCompletedNotificationBody(Import $import): string

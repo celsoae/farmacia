@@ -28,5 +28,6 @@ class Brasindice extends Model
         'codigo_ean',
         'codigo_tiss_brasindice',
         'codigo_tuss',
+        'aliquota'
     ];
 }
