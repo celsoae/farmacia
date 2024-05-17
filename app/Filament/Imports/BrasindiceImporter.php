@@ -12,14 +12,14 @@ class BrasindiceImporter extends Importer
 {
     protected static ?string $model = Brasindice::class;
 
-    public static function getOptionsFormComponents(): array
-    {
-        return [
-            TextInput::make('aliquota')
-                ->label('Aliquota Importada')
-                ->required()
-        ];
-    }
+//    public static function getOptionsFormComponents(): array
+//    {
+//        return [
+//            TextInput::make('aliquota')
+//                ->label('Aliquota Importada')
+//                ->required()
+//        ];
+//    }
 
     public static function getColumns(): array
     {
@@ -62,7 +62,7 @@ class BrasindiceImporter extends Importer
 
     public function resolveRecord(): ?Brasindice
     {
-        $aliquota = $this->getOptions()['adicionais']['aliquota'];
+        $aliquota = $this->getOptions()['aliquota'];
 
         $brasindice = new Brasindice();
         $brasindice->setAttribute('aliquota', $aliquota);
