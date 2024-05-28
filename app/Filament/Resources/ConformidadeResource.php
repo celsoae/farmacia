@@ -7,9 +7,11 @@ use App\Filament\Resources\ConformidadeResource\Custom\CustomBulkSelect;
 use App\Filament\Resources\ConformidadeResource\Pages;
 use App\Filament\Resources\ConformidadeResource\RelationManagers;
 use App\Models\Conformidade;
+use App\Models\Simpro;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Notifications\Notification;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,6 +21,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Livewire;
 
 class ConformidadeResource extends Resource
 {
@@ -30,6 +33,7 @@ class ConformidadeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public $viewRecords;
 
     public static function form(Form $form): Form
     {
@@ -54,15 +58,30 @@ class ConformidadeResource extends Resource
                 Tables\Columns\TextColumn::make('SUBSTANCIA')
                     ->label('Substância')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('APRESENTACAO')
+                    ->label('Apresentação')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('TIPO_PRODUTO')
+                    ->label('Tipo do Produto')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('RESTRICAO_HOSPITALAR')
+                    ->label('Restrito Hosp.')
+                    ->searchable(),
             ])
             ->headerActions([
                 ImportAction::make()
                     ->importer(ConformidadeImporter::class)
-                    ->csvDelimiter(';')
+                    ->csvDelimiter(';'),
             ])
             ->filters([
-                //
-            ])
+                Tables\Filters\Filter::make('RESTRICAO_HOSPITALAR')
+                    ->label('Restrito Hospital')
+                    ->query(fn(Builder $query): Builder => $query->where('RESTRICAO_HOSPITALAR', 'Sim'))
+                    ->toggle(),
+                Tables\Filters\SelectFilter::make('TIPO_PRODUTO')
+                    ->label('Tipo do Produto')
+                    ->options(Conformidade::selectRaw('DISTINCT TIPO_PRODUTO')->get())
+            ], layout: Tables\Enums\FiltersLayout::AboveContent)
             ->actions([
 //                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make()
@@ -73,20 +92,19 @@ class ConformidadeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
                 Tables\Actions\BulkAction::make('compare')
-                    ->button()
-                    ->action(function (Collection $records) {
-//                        dd($records);
+                    ->modalContent(function ($records) {
+                        $sugestoes = Conformidade::whereIn('id', $records->pluck('id')->all())->get();
+
+                        return view('filament.modal.comparativo',
+                            [
+                                'records' => $records,
+                                'sugestoes' => $sugestoes
+                            ]);
                     })
-                    ->before(function (Collection $records) {
-                        if ($records->count() > 4) {
-                            Notification::make()
-                                ->title('Numero maximo de itens permitido é: 4')
-                                ->warning()
-                                ->send();
-                            return null;
-                        }
-                        dd('ok');
-                    })
+                    ->stickyModalHeader()
+                    ->modalHeading('Comparativo de Preços')
+                    ->modalSubmitAction(false)
+                    ->modalWidth('full')
             ])
             ->selectCurrentPageOnly();
     }
@@ -106,5 +124,10 @@ class ConformidadeResource extends Resource
 //            'edit' => Pages\EditConformidade::route('/{record}/edit'),
             'view' => Pages\ViewConformidade::route('/{record}'),
         ];
+    }
+
+    public function teste()
+    {
+        dd('oi');
     }
 }

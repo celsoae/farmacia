@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Brasindice;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brasindice extends Model
+class Oncologicos extends Model
 {
     use HasFactory;
 
     protected $connection = 'forge';
 
-    protected $table = 'farmacia_importacoes.brasindice_medicamentos';
+    protected $table = 'farmacia_importacoes.brasindice_oncologicos';
 
     protected $fillable = [
         'laboratorio_codigo',
@@ -20,12 +20,10 @@ class Brasindice extends Model
         'produto',
         'apresentacao_codigo',
         'apresentacao',
-        'pmc',
         'pfb',
         'fracao',
-        'tipo_fracao_pmc',
-        'pmc_fracao',
         'tipo_pfb_fracao',
+        'pfb_fracao',
         'edicao_alteracao',
         'ipi',
         'portaria',

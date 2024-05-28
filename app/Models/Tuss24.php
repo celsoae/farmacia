@@ -9,9 +9,9 @@ class Tuss24 extends Model
 {
     use HasFactory;
 
-    protected $connection = 'hostgator';
+//    protected $connection = 'hostgator';
 
-    protected $table = 'TUSS_24';
+    protected $table = 'tuss_24';
 
     protected $fillable = [
       'display',

@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Filament\Imports;
+namespace App\Filament\Imports\Brasindice;
 
-use App\Models\Brasindice;
+use App\Models\Brasindice\Oncologicos;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
-use Filament\Forms\Components\TextInput;
 
-class BrasindiceImporter extends Importer
+class OncologicosImporter extends Importer
 {
-    protected static ?string $model = Brasindice::class;
+    protected static ?string $model = Oncologicos::class;
 
     public static function getColumns(): array
     {
@@ -33,20 +32,11 @@ class BrasindiceImporter extends Importer
                 ->rules(['max:255']),
             ImportColumn::make('apresentacao')
                 ->rules(['max:255']),
-            ImportColumn::make('pmc')
-                ->guess(['preco_pmc'])
-                ->rules(['max:255']),
             ImportColumn::make('pfb')
                 ->guess(['preco_pfb'])
                 ->rules(['max:255']),
             ImportColumn::make('fracao')
                 ->guess(['qtd_fracao'])
-                ->rules(['max:255']),
-            ImportColumn::make('tipo_fracao_pmc')
-                ->guess(['pmc'])
-                ->rules(['max:255']),
-            ImportColumn::make('pmc_fracao')
-                ->guess(['preco_fracao_pmc'])
                 ->rules(['max:255']),
             ImportColumn::make('tipo_pfb_fracao')
                 ->guess(['pfb'])
@@ -80,7 +70,7 @@ class BrasindiceImporter extends Importer
         ];
     }
 
-    public function resolveRecord(): ?Brasindice
+    public function resolveRecord(): ?Oncologicos
     {
         $aliquota = $this->getOptions()['aliquota_id'];
         $versao_update = $this->getOptions()['versao_update'];
@@ -89,17 +79,17 @@ class BrasindiceImporter extends Importer
 
         \DB::beginTransaction();
         try {
-            \DB::connection('forge')->statement('CALL farmacia_importacoes.usp_CreateBrasindiceMedicamentos(?)', [$versao_update]);
+            \DB::connection('forge')->statement('CALL farmacia_importacoes.usp_CreateBrasindiceOncologicos(?)', [$versao_update]);
 
             //TODO::verificar se os itens ja estão na lista antes de importar.
 
-            $brasindice = new Brasindice();
-            $brasindice->setAttribute('aliquota_id', $aliquota);
-            $brasindice->setAttribute('versao_update', $versao_update);
-            $brasindice->setAttribute('tipo_brasindice', $tipo_brasindice);
-            $brasindice->setAttribute('restrito_hospitalar', $restrito_hospital);
+            $brasindice_oncologico = new Oncologicos();
+            $brasindice_oncologico->setAttribute('aliquota_id', $aliquota);
+            $brasindice_oncologico->setAttribute('versao_update', $versao_update);
+            $brasindice_oncologico->setAttribute('tipo_brasindice', $tipo_brasindice);
+            $brasindice_oncologico->setAttribute('restrito_hospitalar', $restrito_hospital);
 
-            return $brasindice;
+            return $brasindice_oncologico;
         } catch (\Throwable $t) {
             \DB::rollBack();
             dd($t->getMessage());
@@ -108,7 +98,7 @@ class BrasindiceImporter extends Importer
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your brasindice import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
+        $body = 'Your oncologicos import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
             $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';

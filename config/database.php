@@ -73,7 +73,17 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
         ],
-
+        'forge' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_FORGE'),
+            'port' => env('DB_PORT_FORGE'),
+            'database' => env('DB_DATABASE_FORGE'),
+            'username' => env('DB_USERNAME_FORGE'),
+            'password' => env('DB_PASSWORD_FORGE'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+        ],
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

@@ -31,18 +31,18 @@ class Tuss24Importer extends Importer
 
     public function resolveRecord(): ?Tuss24
     {
-//        $observacao = $this->getOptions()['Adicionais']['observacao'];
-//
-//        $tuss24 = new Tuss24();
-//        $tuss24->setAttribute('observacao', $observacao);
-//
-//        return $tuss24;
+        $observacao = $this->getOptions()['observacao'];
+
+        $tuss24 = new Tuss24();
+        $tuss24->setAttribute('observacao', $observacao);
+
+        return $tuss24;
         // return Tuss24::firstOrNew([
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
 
-        return new Tuss24();
+//        return new Tuss24();
     }
 
     public static function getCompletedNotificationBody(Import $import): string

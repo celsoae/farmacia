@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Brasindice;
 
-use App\Filament\Imports\BrasindiceImporter;
+use App\Filament\Imports\Brasindice\OncologicosImporter;
 use App\Filament\Imports\Custom\CustomTableImportAction;
-use App\Filament\Imports\Custom\Parsers\SimproParser;
-use App\Filament\Imports\SimproImporter;
-use App\Filament\Resources\BrasindiceResource\Pages;
-use App\Filament\Resources\BrasindiceResource\RelationManagers;
-use App\Models\Brasindice;
-use Filament\Tables\Actions\ImportAction;
+use App\Filament\Resources\Brasindice\OncologicosResource\Pages;
+use App\Filament\Resources\Brasindice\OncologicosResource\RelationManagers;
+use App\Models\Brasindice\Oncologicos;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,13 +15,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BrasindiceResource extends Resource
+class OncologicosResource extends Resource
 {
-    protected static ?string $model = Brasindice::class;
-
-    protected static ?string $pluralLabel = 'Brasindice';
-
-    protected static ?string $navigationGroup = 'Tabelas';
+    protected static ?string $model = Oncologicos::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -46,9 +39,15 @@ class BrasindiceResource extends Resource
                 Tables\Columns\TextColumn::make('aliquota_id')
                     ->label('Alíquota'),
             ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
             ->headerActions([
                 CustomTableImportAction::make()
-                    ->importer(BrasindiceImporter::class)
+                    ->importer(OncologicosImporter::class)
                     ->csvDelimiter(',')
                     ->setCustomForm([
                         Forms\Components\TextInput::make('aliquota_id')
@@ -68,15 +67,6 @@ class BrasindiceResource extends Resource
                             ->required(),
                     ])
             ])
-            ->filters([
-                Tables\Filters\Filter::make('rh')
-                    ->label('Restrito Hospital')
-                    ->toggle(),
-            ])
-            ->actions([
-//                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
-            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -94,9 +84,9 @@ class BrasindiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBrasindices::route('/'),
-            'create' => Pages\CreateBrasindice::route('/create'),
-//            'edit' => Pages\EditBrasindice::route('/{record}/edit'),
+            'index' => Pages\ListOncologicos::route('/'),
+            'create' => Pages\CreateOncologicos::route('/create'),
+            'edit' => Pages\EditOncologicos::route('/{record}/edit'),
         ];
     }
 }

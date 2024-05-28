@@ -38,42 +38,30 @@ class ViewConformidade extends ViewRecord
                         TextEntry::make('PRODUTO')
                             ->label('Produto')
                             ->columnSpan(2),
-                        TextEntry::make('TARJA')
-                            ->label('Tarja')
-                            ->badge()
-                            ->formatStateUsing(fn(string $state): string => match ($state) {
-                                'Tarja Vermelha' => 'Vermelha',
-                                'Tarja Vermelha sob restrição' => 'Vermelha Restrita',
-                                'Tarja Preta' => 'Preta',
-                                'Tarja Sem Tarja', '- (*)' => 'Sem tarja',
-                            })
-                            ->color(fn(string $state): string => match ($state) {
-                                'Tarja Vermelha', 'Tarja Vermelha sob restrição' => 'danger',
-                                'Tarja Preta' => 'gray',
-                                'Tarja Sem Tarja', '- (*)' => 'gray',
-                            }),
-//                        IconEntry::make('TARJA')
+//                        TextEntry::make('TARJA')
 //                            ->label('Tarja')
-//                            ->icon(fn(string $state): string => match ($state) {
-//                                'Tarja Vermelha' => 'heroicon-s-rectangle-stack',
-//                                'Tarja Vermelha sob restrição' => 'heroicon-s-rectangle-stack',
-//                                'Tarja Preta' => 'heroicon-s-rectangle-stack',
-//                                'Tarja Sem Tarja' => 'heroicon-o-minus-circle',
-//                                '- (*)' => 'heroicon-o-minus-circle',
+//                            ->badge()
+//                            ->formatStateUsing(fn(string $state): string => match ($state) {
+//                                'Tarja Vermelha' => 'Vermelha',
+//                                'Tarja Vermelha sob restrição' => 'Vermelha Restrita',
+//                                'Tarja Preta' => 'Preta',
+//                                'Tarja Sem Tarja', '- (*)' => 'Sem tarja',
 //                            })
 //                            ->color(fn(string $state): string => match ($state) {
-//                                'Tarja Vermelha' => 'danger',
-//                                'Tarja Vermelha sob restrição' => 'danger',
-//                                'Tarja Preta' => 'black',
-//                                'Tarja Sem Tarja' => 'gray',
-//                                '- (*)' => 'gray',
+//                                'Tarja Vermelha', 'Tarja Vermelha sob restrição' => 'danger',
+//                                'Tarja Preta' => 'gray',
+//                                'Tarja Sem Tarja', '- (*)' => 'gray',
 //                            }),
-                        TextEntry::make('CLASSE_TERAPEUTICA')
-                            ->label('Classe Terapeutica')
-                            ->columnSpan(1),
-                        TextEntry::make('APRESENTACAO')
-                            ->label('Apresentação')
-                            ->columnSpan(3),
+//                        TextEntry::make('CLASSE_TERAPEUTICA')
+//                            ->label('Classe Terapeutica')
+//                            ->columnSpan(1),
+//                        TextEntry::make('APRESENTACAO')
+//                            ->label('Apresentação')
+//                            ->columnSpan(3),
+                        TextEntry::make('Apresentacao')
+                            ->html()
+                            ->view('ConformidadeEspecificacoes')
+                            ->columnSpan('full')
                     ])
                     ->columns(4)
 //                    ->collapsible()

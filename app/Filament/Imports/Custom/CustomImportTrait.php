@@ -101,13 +101,11 @@ trait CustomImportTrait
                 ->visibility('private')
                 ->required()
                 ->hiddenLabel(),
-//            Fieldset::make('Adicionais')
-//                ->schema([
-//                    TextInput::make('versao')
-//                        ->required(),
-//                ])
-//                ->columns(1)
-//                ->inlineLabel(),
+            Fieldset::make('Adicionais')
+                ->schema($this->customSchema)
+                ->columns(1)
+                ->inlineLabel()
+                ->visible(fn(Get $get): bool => Arr::first((array)($get('file') ?? [])) instanceof TemporaryUploadedFile),
             Fieldset::make(__('filament-actions::import.modal.form.columns.label'))
                 ->columns(1)
                 ->inlineLabel()
